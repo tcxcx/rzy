@@ -1,0 +1,35 @@
+{
+  "name": "pettokenbalances",
+  "version": "1.0.0",
+  "description": "",
+  "main": "backend/app.js",
+  "scripts": {
+    "start": "nodemon backend/app.js",
+    "test": "mocha",
+    "testNode": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@astar-network/astar-api": "^0.1.5-7",
+    "@polkadot/api": "^10.11.1",
+    "@supabase/supabase-js": "^2.38.5",
+    "@thirdweb-dev/sdk": "^4.0.16",
+    "apollo-server-express": "^3.13.0",
+    "axios": "^1.6.2",
+    "dotenv": "^16.3.1",
+    "ethers": "^5.7.2",
+    "express": "^4.18.2",
+    "graphql": "^16.8.1",
+    "node-cron": "^3.0.3",
+    "qrcode": "^1.5.3",
+    "resend": "^2.0.0"
+  },
+  "devDependencies": {
+    "chai": "^4.3.10",
+    "chai-http": "^4.4.0",
+    "mocha": "^10.2.0",
+    "nodemon": "^3.0.1"
+  }
+}

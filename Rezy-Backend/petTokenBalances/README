@@ -1,0 +1,8 @@
+[Frontend (React + Zustand)] <--> [Backend (Express + Apollo GraphQL)]
+    |                                         |
+    |------> [Supabase Realtime Subscriptions]
+    |                                         |
+    |------> [Cron Job (Thirdweb SDK Script)] ---> [Ethereum Blockchain (Alchemy API)]
+    |                                         |
+    `------> [Supabase Database]
+              (Token Balances, User Activities)

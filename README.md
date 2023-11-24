@@ -54,7 +54,7 @@ Execute yarn /npm storage.js in the minter folder for storage management.
 2. Install dependencies with `npm`.
 
 Contributing
-For queries regarding contributions, such as issues or pull requests, please contact cedarmat@gmail.com or tcordero.e@gmail.com.
+For queries regarding contributions, such as issues or pull requests, please contact cedarmat@gmail.com or cryptopoeta@gmail.com.
 
 ## License
 MIT License

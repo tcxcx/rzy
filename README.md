@@ -1,5 +1,5 @@
 # REZY
-## Konichiwa! Rezy
+## Konichiwa!
 ### "A Blockchain Rewards Based Platform for the Web3hackathon KEY3 HACKATHON" in Japan
 
 ---

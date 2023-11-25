@@ -1,4 +1,7 @@
 # REZY
+![Banner](/Colorful Gradient Modern Zoom Virtual Background.png)
+
+
 ## Konichiwa!
 ### "A Blockchain Rewards Based Platform for the Web3hackathon KEY3 HACKATHON" in Japan
 
@@ -25,6 +28,8 @@ Rezy is a recycling platform that operates on the Astar Network. It offers a rew
 - **User Interface:** Developed with Next.js and TypeScript, incorporating React components for a dynamic and responsive experience.
 - **Styling:** A combination of Sass and Tailwind CSS ensures an aesthetically appealing design.
 - **Blockchain Integration:** Utilizes ThirdWeb, Biconomy SDK, and Particle Wallet SDK for secure and efficient blockchain transactions.
+
+![FrontEnd](/rezy-screen.png)
 
 ### Backend Features:
 1. **User Interaction with an Inverse Vending Machine:** Users scan and deposit bottles to earn PET tokens.

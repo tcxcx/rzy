@@ -1,5 +1,5 @@
 # REZY
-![Banner](/Colorful Gradient Modern Zoom Virtual Background.png)
+![Banner](/rezy-banner.png)
 
 
 ## Konichiwa!

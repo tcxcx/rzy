@@ -1,0 +1,85 @@
+[33m6b9ba68[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m, [m[1;31morigin/HEAD[m[33m)[m Tokyo Torch 3D
+[33me26dcd4[m remove vendor for build
+[33m4bc766c[m spline, marquee & vendor scan
+[33m5b011c1[m api route with data for db
+[33md6ffb72[m added cors policy
+[33m8018f21[m response for redemption process
+[33m7e28050[m correcion mensaje await response
+[33m57b2ea1[m production build test #1
+[33m8513819[m modals bug
+[33m6e0798c[m template points and claim
+[33m77ad1e9[m spline punk
+[33m6eacdc1[m network bug comment
+[33m258d429[m merge development
+[33m07b4053[m added balances
+[33m60d393d[m build
+[33m4096f69[m request body
+[33m45f96e9[m merge
+[33m7c391a3[m mint function advances
+[33m78cbaf6[m a
+[33mdc29984[m added thirdweb loyalty card smart contract
+[33m4239dcd[m bug fix hydration ui
+[33m74aa8ff[m leaderboard and district perks template
+[33m1004fd4[m Saving current work before revert
+[33m5eca003[m Resolved merge conflicts
+[33mbd7688c[m sitemap build
+[33m3b22df2[m particle wallet
+[33m49428bc[m revert
+[33mce377e4[m Resolved merge conflicts
+[33mf8c3c5a[m particle breaking changes
+[33m6c9389d[m shibuya testnet smart wallet
+[33mc14bf24[m useEffect cart reset = 0
+[33m0e583dd[m toasts
+[33m8182846[m merge clean
+[33m70b2953[m m
+[33me547244[m Merge branch 'merge-development-to-main'
+[33m3faf3db[m Merge branch 'master' of github.com:tcxcx/Rezy-Front-End
+[33mf718215[m[33m ([m[1;31morigin/merge-development-to-main[m[33m, [m[1;32mmerge-development-to-main[m[33m)[m mainnet
+[33m5c9bd32[m mainnet
+[33m14ccb96[m shibuya as 81
+[33md9f173c[m Use Yarn as the package manager only
+[33mcba8287[m Merged development branch into merge-development-to-main
+[33m4f57d1c[m biconomy template
+[33m277a4d9[m particle auth
+[33m781ab36[m smart wallet config biconomy
+[33m80f2ac5[m react-magic-motion
+[33md1361cf[m styling cart list
+[33mfa9b391[m pipeline without magic
+[33mea61f3e[m blur modal
+[33m5d81ad1[m cart send and cart list
+[33m3c27715[m add to cart
+[33m411410e[m next config
+[33md0d5f54[m Merge pull request #6 from tcxcx/merge-development-to-main
+[33m74b8a42[m scanner buttons and modals
+[33m1cc3308[m modal merge
+[33maa753d8[m scan with products
+[33md153b78[m scan simpler
+[33m9f72a5e[m .error handling
+[33ma05a46d[m modal quagga
+[33m83cfda7[m component scan headless
+[33m9301e06[m add example
+[33m300c523[m quagga canvas template
+[33m91dff21[m button work
+[33me878a05[m wallet
+[33m33ff6b4[m Merge pull request #4 from tcxcx/development
+[33m8a284cf[m connect wallet button and start
+[33m8b7946f[m wallet template
+[33mcfeaaa5[m Remove .env.example
+[33mb4bf806[m Add new wallet components and hooks, update existing files
+[33mf2a617e[m fonts and zustand navigation
+[33m563c5bd[m Html5QrcodeScanner
+[33md4d19bc[m quick
+[33m5f97b35[m commented code for build
+[33m1575f2a[m build
+[33mcffd71b[m zustand stepper complete
+[33m1d0b2d8[m zustand first try
+[33mb194d63[m styling step 1
+[33m087643c[m code migration
+[33m6dcae69[m framer motion animations landing
+[33m60100ba[m Remove conflicting package manager lock file
+[33m9a19262[m image top
+[33mc9dadcd[m landing done
+[33md36adbf[m card styling
+[33m694196a[m lunar template
+[33ma23a617[m dependency tree no issues
+[33m68a8a37[m Initial commit

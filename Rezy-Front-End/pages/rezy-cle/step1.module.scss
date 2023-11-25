@@ -1,0 +1,86 @@
+// step1.module.scss
+
+// Consider defining responsive sizes, colors, and other reused values in variables
+
+// Define mixins for responsive text sizes
+@mixin responsive-text($min-size, $max-size) {
+  font-size: $min-size;
+  @media screen and (min-width: 768px) {
+    font-size: calc(
+      #{$min-size} + (#{$max-size} - #{$min-size}) * ((100vw - 768px) /
+            (1920 - 768))
+    );
+  }
+  @media screen and (min-width: 1920px) {
+    font-size: $max-size;
+  }
+}
+
+.home {
+  font-family: sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding-top: 100px;
+
+  .title {
+    text-align: center;
+    max-width: 50%;
+    margin: 0 auto;
+
+    @include responsive-text(1.6rem, 3rem); // Using mixin for responsive text
+
+    .studioRezy {
+      @include responsive-text(2rem, 4rem); // Larger text for the main title
+      margin: 1rem;
+    }
+  }
+
+  .word {
+    display: inline-block;
+    cursor: pointer;
+  }
+  .titleText {
+    display: block;
+  }
+  .titleText2 {
+    display: block;
+    color: rgb(202, 202, 202);
+    font-size: 2rem;
+  }
+
+  .subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+  }
+
+  .content {
+    display: flex;
+    padding-top: 10px;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .balance-display {
+    margin: 2rem 0;
+  }
+
+  // Loading and list styles
+  .loading,
+  ul {
+    font-size: 1rem;
+  }
+
+  ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin-bottom: 0.5rem;
+    }
+  }
+}
+
+#scanner-container {
+  position: relative;
+  text-align: center;
+}

@@ -1,0 +1,32 @@
+.home {
+  font-family: sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+
+  .title {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    text-align: center;
+    font-size: desktop-vw(16px);
+    max-width: desktop-vw(500px);
+    margin: auto;
+  }
+
+  .word {
+    display: inline-block;
+    cursor: pointer;
+  }
+
+  .titleText {
+    display: block;
+  }
+
+  .studioRezy {
+    font-size: desktop-vw(32px);
+    display: block;
+    margin-bottom: desktop-vw(20px);
+  }
+}

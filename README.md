@@ -1,4 +1,4 @@
-# Project Name
+# REZY
 ## Konichiwa! Rezy
 ### "A Blockchain Rewards Based Platform for the Web3hackathon KEY3 HACKATHON" in Japan
 

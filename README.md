@@ -32,9 +32,7 @@ Rezy is a recycling platform that operates on the Astar Network. It offers a rew
 3. **Gasless Experience:** Backend handles gas requirements, offering a seamless user experience without needing gas in the user's Particle wallet.
 
 ### User Interaction:
-User interaction with an inverse vending machine: Users scan and deposit bottles to earn PET tokens.
-Backend processing: The backend counts the bottles and uses a Thirdweb function to mint corresponding PET tokens.
-Gasless experience: Backend handles gas requirements, offering a seamless user experience without needing gas in the user's Particle wallet.
+User interaction with an inverse vending machine: Users scan and deposit bottles to earn PET tokens. The backend counts the bottles and uses a Thirdweb function to mint corresponding PET tokens. Backend handles gas requirements, offering a seamless user experience without needing gas in the user's Particle wallet.
 
 ## Installation
 

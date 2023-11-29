@@ -3,6 +3,7 @@ const router = express.Router();
 const { createClient } = require("@supabase/supabase-js");
 const { Resend } = require("resend");
 const QRCode = require("qrcode");
+const { decode } = require("base64-arraybuffer");
 
 // Initialize Supabase client
 const supabase = createClient(
@@ -70,7 +71,10 @@ router.post("/", async function (req, res) {
 
   let couponId = couponData?.coupon_id;
   const qrData = { couponId: couponId, walletAddress: wallet_address };
-  const qrCodeURL = await QRCode.toDataURL(JSON.stringify(qrData));
+  const qrCodeBase64 = await QRCode.toDataURL(JSON.stringify(qrData));
+  const buffer = decode(qrCodeBase64.split(",")[1]);
+  const uniqueId = Date.now();
+  const filePath = `${couponId}_${uniqueId}.png`;
 
   const currentTime = new Date().toISOString();
 
@@ -94,12 +98,10 @@ router.post("/", async function (req, res) {
         newCouponError ? newCouponError.message : "Unknown error"
       );
       console.log("Supabase response:", { newCoupon, newCouponError });
-      return res
-        .status(500)
-        .json({
-          error: "Error inserting new coupon",
-          details: newCouponError ? newCouponError.message : "Unknown error",
-        });
+      return res.status(500).json({
+        error: "Error inserting new coupon",
+        details: newCouponError ? newCouponError.message : "Unknown error",
+      });
     }
 
     couponId = newCoupon.coupon_id;
@@ -118,6 +120,25 @@ router.post("/", async function (req, res) {
       return res.status(500).json({ error: "Error updating coupon" });
     }
   }
+  const uploadResult = await supabase.storage
+  .from("qr_codes")
+  .upload(filePath, buffer, {
+    contentType: "image/png",
+  });
+
+if (uploadResult.error) {
+  console.error("Error uploading QR code to Supabase Storage:", uploadResult.error);
+  return res.status(500).json({ error: "Error uploading QR code" });
+}
+console.log("QR code uploaded successfully, here is the result", uploadResult);
+
+// Manually construct the public URL
+const qrCodeURL = `https://kjfgojhzdalyjbbblasl.supabase.co/storage/v1/object/public/qr_codes/${uploadResult.data.path}`;
+
+console.log("Constructed QR Code URL:", qrCodeURL);
+
+// Fetch the public URL of the uploaded file
+
 
   // Update userActivities
   const { error: userActivityError } = await supabase
@@ -125,59 +146,66 @@ router.post("/", async function (req, res) {
     .insert({
       wallet_address: wallet_address,
       coupon_id: couponId,
-      user_coupons_redeemed: 1,
       qr_code_url: qrCodeURL,
+      user_coupons_redeemed: 1,
       coupon_spent: false,
     });
+  console.log(
+    "User activity updated successfully, here is the qrCodeURL:",
+    qrCodeURL
+  );
 
   if (userActivityError) {
     console.error("Error updating user activities:", userActivityError);
     return res.status(500).json({ error: "Error updating user activities" });
   }
 
-  const emailData = await resend.emails.send({
-    from: "REZY <coupon@rezy.lat>",
-    to: "tomas.cordero.esp@gmail.com",
-    subject: "New Coupon Redeemed",
-    html: `
-    <div class="email-container">
-        <div style="margin-bottom: 8px; padding-top: 16px; display: block; text-align: center;">
-            <img src="https://kjfgojhzdalyjbbblasl.supabase.co/storage/v1/object/sign/rezy_image/2.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJyZXp5X2ltYWdlLzIucG5nIiwiaWF0IjoxNzAwNzE2MzE0LCJleHAiOjE3MzIyNTIzMTR9.Ylz7HeaX3i37nOFDj9eqrhAIQFikwBkHrEOAy710lus&t=2023-11-23T05%3A11%3A55.744Z" alt="Company Logo" style="height: 64px; width: auto; margin: 0 auto; display: block; text-align: center;">
-        </div>
-        <div class="email-content" style="margin: 8px 16px 16px; padding: 16px;">
-            <div style="text-align: left; font-weight: bold; font-size: 12px; margin-bottom: 16px;">
-            <h1>Congratulations on Your New Coupon!</h1>
-            </div>
-            <div style="font-size: 14px; color: #718096; margin-bottom: 8px;">
-            <p>You have successfully redeemed a coupon for <strong>${businessName}</strong>!</p>
-            <p>Here is your QR Code for the coupon:</p>
-            <img src="${qrCodeURL}" alt="QR Code" />
-            </div>
-            <div style="font-size: 14px; color: #718096; margin-bottom: 8px; padding-top: 16px;">
-            <p>Please keep this email as a reference for your redeemed coupon.</p>
-            <p>If you have any questions or need assistance, feel free to contact our support team.</p>
-            <p>Thank you for being a valued member of our community!</p>
-
-            </div>
-            <div style="font-size: 18px; font-weight: bold; color: #000000; margin-bottom: 8px; padding-top: 16px;">
-            <p>Best regards,</p>
-                      </div>
-            <div style="font-size: 18px; font-weight: bold; color: #000000; margin-bottom: 8px;">
-            <p>The REZY Team</p>  
+  try {
+    const emailData = await resend.emails.send({
+      from: "REZY <coupon@rezy.lat>",
+      to: email,
+      subject: "New Coupon Redeemed",
+      html: `
+      <div class="email-container">
+          <div style="margin-bottom: 8px; padding-top: 16px; display: block; text-align: center;">
+              <img src="https://kjfgojhzdalyjbbblasl.supabase.co/storage/v1/object/sign/rezy_image/2.png?token=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1cmwiOiJyZXp5X2ltYWdlLzIucG5nIiwiaWF0IjoxNzAwNzE2MzE0LCJleHAiOjE3MzIyNTIzMTR9.Ylz7HeaX3i37nOFDj9eqrhAIQFikwBkHrEOAy710lus&t=2023-11-23T05%3A11%3A55.744Z" alt="Company Logo" style="height: 64px; width: auto; margin: 0 auto; display: block; text-align: center;">
+          </div>
+          <div class="email-content" style="margin: 8px 16px 16px; padding: 16px;">
+              <div style="text-align: left; font-weight: bold; font-size: 12px; margin-bottom: 16px;">
+              <h1>Congratulations on your New Coupon Redemption!</h1>
+              </div>
+              <div style="font-size: 14px; color: #718096; margin-bottom: 8px;">
+              <p>You have successfully redeemed a coupon for <strong>${businessName}</strong>!</p>
+              <p>Here is your QR Code for the coupon:</p>
+              <div style="text-align: center; display: block">               
+                <img src="${qrCodeURL}" alt="QR Code" />
+              </div>
+         </div>
+              <div style="font-size: 14px; color: #718096; margin-bottom: 8px; padding-top: 16px;">
+              <p>Please keep this email as a reference for your redeemed coupon.</p>
+              <p>If you have any questions or need assistance, feel free to contact our support team.</p>
+              <p>Thank you for being a valued member of our community!</p>
+  
+              </div>
+              <div style="font-size: 18px; font-weight: bold; color: #000000; margin-bottom: 8px; padding-top: 16px;">
+              <p>Best regards,</p>
                         </div>
-            <div style="font-size: 12px; color: #A0AEC0; margin-bottom: 8px; padding-top: 16px;">
-            REZY will never call you by phone or send you an email asking you to disclose or verify your banking information. If you receive any suspicious emails with links to update your account information or they ask you over the phone, do not click on any of the links or give any data. Inform DREX about these suspicious emails or calls.
-            </div>
-            <div style="font-size: 12px; color: #A0AEC0; margin-bottom: 8px; text-align: center; padding-top: 16px;">
-                These emails are automatic. Please do not reply.
-            </div>
-        </div>
-    </div>`,
-  });
-
-  console.log("Email sent successfully", emailData);
-  // If all goes well, send a success response
-  res.json({ message: "Promo redeemed successfully" });
+              <div style="font-size: 18px; font-weight: bold; color: #000000; margin-bottom: 8px;">
+              <p>The REZY Team</p>  
+                          </div>
+              <div style="font-size: 12px; color: #A0AEC0; margin-bottom: 8px; padding-top: 16px;">
+              REZY will never call you by phone or send you an email asking you to disclose or verify your banking information. If you receive any suspicious emails with links to update your account information or they ask you over the phone, do not click on any of the links or give any data. Inform DREX about these suspicious emails or calls.
+              </div>
+              <div style="font-size: 12px; color: #A0AEC0; margin-bottom: 8px; text-align: center; padding-top: 16px;">
+                  These emails are automatic. Please do not reply.
+              </div>
+          </div>
+      </div>`,
+    });
+    console.log("Email sent successfully", emailData);
+  } catch (error) {
+    console.error("Error sending email:", error);
+  }
 });
 
 module.exports = router;
